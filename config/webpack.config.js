@@ -49,7 +49,8 @@ const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
-
+const lessRegex  = /\.less$/;
+const lessModuleRegex  = /\.module\.less$/;
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
 module.exports = function(webpackEnv) {
@@ -322,16 +323,24 @@ module.exports = function(webpackEnv) {
       strictExportPresence: true,
       rules: [
           {
-              test:/\.less$/,
-                use:[
-                    {
-                        loader: "style-loader" // creates style nodes from JS strings
-                    }, {
-                        loader: "css-loader" // translates CSS into CommonJS
-                    }, {
-                        loader: "less-loader" // compiles Less to CSS
-                    }
-                ]
+              test:lessRegex,
+                use:getStyleLoaders({
+                    importLoaders:2,
+                    sourceMap:isEnvProduction?
+                        shouldUseSourceMap:
+                        isEnvDevelopment
+                },"less-loader")
+          },
+          {
+              test:lessModuleRegex,
+              use:getStyleLoaders({
+                  importLoaders:2,
+                  sourceMap:isEnvProduction?
+                      shouldUseSourceMap:
+                      isEnvDevelopment,
+                  modules:true,
+                  getLocalIdent:getCSSModuleLocalIdent
+              },"less-loader")
           },
         // Disable require.ensure as it's not a standard language feature.
         { parser: { requireEnsure: false } },

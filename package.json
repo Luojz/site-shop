@@ -140,6 +140,7 @@
     ]
   },
   "devDependencies": {
-    "node-less-chokidar": "^0.4.1"
+    "node-less-chokidar": "^0.4.1",
+    "node-sass": "^4.14.1"
   }
 }

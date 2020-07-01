@@ -8,12 +8,8 @@ export default class IndexComponetn extends React.Component{
     render(){
         return(
            <div>
-
                <div className={"app"}>
-                   首页
-                   <div className={""}>
-                       头部
-                   </div>
+
                </div>
            </div>
         )
